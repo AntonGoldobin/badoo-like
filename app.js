@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const likeBot = require("./bots/like-bot");
+const janna = require("./bots/accounts/janna");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -39,6 +39,6 @@ app.use(function(err, req, res, next) {
 	res.render("error");
 });
 
-likeBot.start();
+janna.start();
 
 module.exports = app;

@@ -1,19 +1,22 @@
 const puppeteer = require("puppeteer");
 require("dotenv").config();
 
-const start = (params) => {
-	console.log(process.env.LOGIN);
-};
-
 const imagesEnabled = false;
-const login = process.env.LOGIN;
-const psw = process.env.PASSWORD;
 
-(async () => {
+const start = async (params) => {
 	const browser = await puppeteer.launch({
 		headless: false,
+		defaultViewport: null,
 		slowMo: 5,
-		devtools: true,
+		args: [
+			"--disable-gpu",
+			"--disable-dev-shm-usage",
+			"--no-sandbox",
+			"--disable-setuid-sandbox",
+			"--no-first-run",
+			"--no-zygote",
+			// "--single-process",
+		],
 	});
 	const page = await browser.newPage();
 
@@ -25,8 +28,8 @@ const psw = process.env.PASSWORD;
 
 	await page.goto("https://badoo.com/signin/", { waitUntil: "networkidle2" });
 
-	await page.type(".js-signin-login", login);
-	await page.type(".js-signin-password", psw);
+	await page.type(".js-signin-login", params.login);
+	await page.type(".js-signin-password", params.password);
 	await page.click(".new-form__actions .btn--block");
 
 	await page.evaluate(() => {
@@ -35,6 +38,7 @@ const psw = process.env.PASSWORD;
 	});
 	const likeBtn = ".profile-action--color-yes";
 
+	//TODO change true to something
 	while (true) {
 		await new Promise((_) => setTimeout(_, 1000)); // pause
 
@@ -44,7 +48,7 @@ const psw = process.env.PASSWORD;
 		} catch (err) {
 			console.log(err.message);
 		}
-		const popups = [ ".js-ovl-close", ".js-chrome-pushes-deny" ].map(async (selector) => {
+		const popups = [ ".js-ovl-close", ".js-chrome-pushes-deny", ".ovl__close" ].map(async (selector) => {
 			try {
 				await page.waitForSelector(selector, { timeout: 1000 });
 				await page.click(selector);
@@ -55,6 +59,6 @@ const psw = process.env.PASSWORD;
 		await Promise.all(popups);
 	}
 	await browser.close();
-})();
+};
 
 module.exports.start = start;
