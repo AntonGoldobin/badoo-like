@@ -5,7 +5,7 @@ const imagesEnabled = false;
 
 const start = async (params) => {
 	const browser = await puppeteer.launch({
-		headless: false,
+		headless: true,
 		defaultViewport: null,
 		slowMo: 5,
 		args: [
