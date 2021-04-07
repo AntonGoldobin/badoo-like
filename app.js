@@ -3,7 +3,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const janna = require("./bots/accounts/janna");
+const angela = require("./bots/accounts/angela");
+const tatyana = require("./bots/accounts/tatyana");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -39,6 +40,7 @@ app.use(function(err, req, res, next) {
 	res.render("error");
 });
 
-janna.start();
+angela.start();
+tatyana.start();
 
 module.exports = app;

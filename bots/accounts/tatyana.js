@@ -2,8 +2,9 @@ const postingBase = require("../like-bot");
 require("dotenv").config();
 
 const config = {
-	login: process.env.JANNA_LOGIN,
-	password: process.env.JANNA_PASSWORD,
+	login: process.env.TATYANA_LOGIN,
+	password: process.env.TATYANA_PASSWORD,
+	likingHour: 15,
 };
 
 const start = () => {

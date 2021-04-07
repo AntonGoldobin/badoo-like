@@ -1,9 +1,17 @@
 const puppeteer = require("puppeteer");
 require("dotenv").config();
+const cron = require("node-cron");
 
 const imagesEnabled = false;
+let dailySchedule = null;
 
-const start = async (params) => {
+const start = (config) => {
+	dailySchedule = cron.schedule(`0 ${config.likingHour} * * *`, () => {
+		startLiking(config);
+	});
+};
+
+const startLiking = async (params) => {
 	const browser = await puppeteer.launch({
 		headless: true,
 		defaultViewport: null,
@@ -38,8 +46,8 @@ const start = async (params) => {
 	});
 	const likeBtn = ".profile-action--color-yes";
 
-	//TODO change true to something
-	while (true) {
+	let likesCount = 0;
+	while (likesCount < 200) {
 		await new Promise((_) => setTimeout(_, 1000)); // pause
 
 		try {
@@ -56,6 +64,7 @@ const start = async (params) => {
 				console.log(err.message);
 			}
 		});
+		likesCount++;
 		await Promise.all(popups);
 	}
 	await browser.close();
