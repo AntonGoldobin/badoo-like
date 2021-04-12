@@ -7,6 +7,7 @@ const config = {
 	password: process.env.ANGELA_PASSWORD,
 	likingHour: 16,
 	replyLikingHour: 17,
+	messageHour: 18,
 };
 
 const start = () => {

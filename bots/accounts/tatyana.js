@@ -7,6 +7,7 @@ const config = {
 	password: process.env.TATYANA_PASSWORD,
 	likingHour: 15,
 	replyLikingHour: 16,
+	messageHour: 17,
 };
 
 const start = () => {

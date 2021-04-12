@@ -1,30 +1,18 @@
 const puppeteer = require("puppeteer");
 require("dotenv").config();
 const cron = require("node-cron");
+const universalConfig = require("./config/config");
 
 const imagesEnabled = false;
 
 const start = (config) => {
-	dailySchedule = cron.schedule(`0 ${config.replyLikingHour} * * *`, () => {
+	dailySchedule = cron.schedule(`10 ${config.replyLikingHour} * * *`, () => {
 		startLiking(config);
 	});
 };
 
 const startLiking = async (params) => {
-	const browser = await puppeteer.launch({
-		headless: true,
-		defaultViewport: null,
-		slowMo: 5,
-		args: [
-			"--disable-gpu",
-			"--disable-dev-shm-usage",
-			"--no-sandbox",
-			"--disable-setuid-sandbox",
-			"--no-first-run",
-			"--no-zygote",
-			// "--single-process",
-		],
-	});
+	const browser = await puppeteer.launch(universalConfig.config().puppeteerConfig);
 	const page = await browser.newPage();
 
 	await page.setRequestInterception(true);
@@ -45,12 +33,7 @@ const startLiking = async (params) => {
 
 	while (hasLikes) {
 		await page.goto(`https://badoo.com/liked-you/${pageCount}`, { waitUntil: "networkidle2" });
-		const popups = [
-			".js-chrome-pushes-allow",
-			".js-ovl-close",
-			".js-chrome-pushes-deny",
-			".ovl__close",
-		].map(async (selector) => {
+		const popups = universalConfig.config().popupClasses.map(async (selector) => {
 			try {
 				await page.waitForSelector(selector, { timeout: 1000 });
 				await page.click(selector);
