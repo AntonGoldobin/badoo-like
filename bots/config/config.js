@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const config = () => {
 	return {
 		popupClasses: [
@@ -8,7 +10,7 @@ const config = () => {
 			".js-continue",
 		],
 		puppeteerConfig: {
-			headless: false,
+			headless: process.env.VERSION == "DEVELOPMENT" ? false : true,
 			defaultViewport: null,
 			slowMo: 5,
 			args: [
