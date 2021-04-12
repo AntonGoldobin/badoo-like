@@ -37,7 +37,7 @@ const startLiking = async (params) => {
 	let likesCount = 0;
 	while (likesCount < 200) {
 		await new Promise((_) => setTimeout(_, 1000)); // pause
-
+		console.log(await page.url());
 		try {
 			await page.waitForSelector(likeBtn, { timeout: 1000 });
 			await page.click(likeBtn);
