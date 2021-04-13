@@ -11,7 +11,7 @@ const config = {
 };
 
 const start = () => {
-	likes.start(config);
+	// likes.start(config);
 	// replyLikes.start(config);
 };
 
