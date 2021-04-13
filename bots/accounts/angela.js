@@ -12,7 +12,7 @@ const config = {
 
 const start = () => {
 	likes.start(config);
-	replyLikes.start(config);
+	// replyLikes.start(config);
 };
 
 module.exports.start = start;

@@ -34,7 +34,6 @@ const startLiking = async (params) => {
 
 	while (hasLikes) {
 		await new Promise((_) => setTimeout(_, 1000)); // pause
-		console.log(await page.url());
 		await page.goto(`https://badoo.com/liked-you/${pageCount}`, { waitUntil: "networkidle2" });
 		const popups = universalConfig.config().popupClasses.map(async (selector) => {
 			try {
@@ -56,6 +55,7 @@ const startLiking = async (params) => {
 
 		const likeBtnsPromises = likeBtns.map(async (likeBtn, i) => {
 			await new Promise((_) => setTimeout(_, 1000 * i)); // pause
+			console.log(await page.url());
 			// await likeBtn.click();
 		});
 
