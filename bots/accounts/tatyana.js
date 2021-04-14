@@ -5,8 +5,8 @@ require("dotenv").config();
 const config = {
 	login: process.env.TATYANA_LOGIN,
 	password: process.env.TATYANA_PASSWORD,
-	likingHour: 16,
-	replyLikingHour: 15,
+	likingHour: 15,
+	replyLikingHour: 16,
 	messageHour: 17,
 };
 

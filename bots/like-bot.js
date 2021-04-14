@@ -35,7 +35,7 @@ const startLiking = async (params) => {
 	const likeBtn = ".profile-action--color-yes";
 
 	let likesCount = 0;
-	while (likesCount < 200) {
+	while (likesCount < 300) {
 		await new Promise((_) => setTimeout(_, 1000)); // pause
 		console.log(await page.url());
 		try {
